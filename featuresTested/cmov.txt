@@ -1,0 +1,38 @@
+make -C ./src/backend generated-headers
+make[1]: Entering directory '/home/postgres/postgresql-14.0/src/backend'
+make -C catalog distprep generated-header-symlinks
+make[2]: Entering directory '/home/postgres/postgresql-14.0/src/backend/catalog'
+make[2]: Nothing to be done for 'distprep'.
+make[2]: Nothing to be done for 'generated-header-symlinks'.
+make[2]: Leaving directory '/home/postgres/postgresql-14.0/src/backend/catalog'
+make -C utils distprep generated-header-symlinks
+make[2]: Entering directory '/home/postgres/postgresql-14.0/src/backend/utils'
+make[2]: Nothing to be done for 'distprep'.
+make[2]: Nothing to be done for 'generated-header-symlinks'.
+make[2]: Leaving directory '/home/postgres/postgresql-14.0/src/backend/utils'
+make[1]: Leaving directory '/home/postgres/postgresql-14.0/src/backend'
+rm -rf '/home/postgres/postgresql-14.0'/tmp_install
+/bin/mkdir -p '/home/postgres/postgresql-14.0'/tmp_install/log
+make -C '.' DESTDIR='/home/postgres/postgresql-14.0'/tmp_install install >'/home/postgres/postgresql-14.0'/tmp_install/log/install.log 2>&1
+make -j1 -C src/test/regress checkprep >>'/home/postgres/postgresql-14.0'/tmp_install/log/install.log 2>&1
+make -C src/test/regress check
+make[1]: Entering directory '/home/postgres/postgresql-14.0/src/test/regress'
+make -C ../../../src/port all
+make[2]: Entering directory '/home/postgres/postgresql-14.0/src/port'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/postgres/postgresql-14.0/src/port'
+make -C ../../../src/common all
+make[2]: Entering directory '/home/postgres/postgresql-14.0/src/common'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/postgres/postgresql-14.0/src/common'
+make -C ../../../contrib/spi
+make[2]: Entering directory '/home/postgres/postgresql-14.0/contrib/spi'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/postgres/postgresql-14.0/contrib/spi'
+PATH="/home/postgres/postgresql-14.0/tmp_install/usr/local/pgsql/bin:$PATH" LD_LIBRARY_PATH="/home/postgres/postgresql-14.0/tmp_install/usr/local/pgsql/lib"  ../../../src/test/regress/pg_regress --temp-instance=./tmp_check --inputdir=. --bindir=     --dlpath=. --max-concurrent-tests=20 --make-testtablespace-dir  --schedule=./parallel_schedule  
+============== removing existing temp instance        ==============
+============== creating temporary instance            ==============
+============== initializing database system           ==============
+GNUmakefile:126: recipe for target 'check' failed
+make[1]: Leaving directory '/home/postgres/postgresql-14.0/src/test/regress'
+GNUmakefile:69: recipe for target 'check' failed
